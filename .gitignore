@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+/public/systems/movies/images
 !/log/.keep
 !/tmp/.keep
 
