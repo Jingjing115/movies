@@ -11,6 +11,13 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
+    if @review.blank?
+      @avg_review = 0
+    else
+      @avg_review = @reviews.average(:rating)
+
+    end
   end
 
   # GET /movies/new
@@ -63,13 +70,13 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def movie_params
-      params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :image)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def movie_params
+    params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :image)
+  end
 end
